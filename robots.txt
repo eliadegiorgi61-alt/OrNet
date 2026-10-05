@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://eliadegiorgi61-alt.github.io/OrNet/sitemap.xml
