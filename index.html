@@ -3,46 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OrNet</title>
+<title>EDG Protocol - OrNet | Motore di Ricerca Anonimo</title>
+<meta name="description" content="EDG Protocol - OrNet è il motore di ricerca anonimo e sicuro. EDG Protocol con 4 nodi proxy attivi.">
+<meta name="keywords" content="edg protocol, edg, ornet, motore ricerca anonimo, proxy">
+<meta name="robots" content="index, follow">
 <style>
-body{background:#0a0a0a;color:white;font-family:Arial;display:flex;flex-direction:column;align-items:center;min-height:100vh;margin:0;padding-top:70px}
-h1{font-size:3.2em;letter-spacing:5px;margin-bottom:20px}
+body{background:#0a0a0a;color:white;font-family:Arial;display:flex;flex-direction:column;align-items:center;min-height:100vh;margin:0;padding-top:60px}
+h1{font-size:3.2em;letter-spacing:5px;margin-bottom:5px}
+h2{color:#00ff88;font-size:14px;letter-spacing:3px;margin-bottom:20px;font-weight:normal}
 .search-box{display:flex;width:92%;max-width:620px;background:#1a1a1a;border-radius:30px;padding:12px 20px;border:1px solid #333}
 .search-box input{flex:1;background:transparent;border:none;color:white;outline:none;font-size:18px}
 .search-box button{background:white;border:none;border-radius:20px;padding:8px 20px;cursor:pointer;font-weight:bold;color:#0066ff}
-#proxy-status{text-align:center;margin-top:12px;font-size:15px;height:20px;color:#00ff88}
+#proxy-status{text-align:center;margin-top:12px;font-size:15px;color:#00ff88}
 .nodes{display:flex;gap:10px;margin-top:25px;flex-wrap:wrap;justify-content:center;width:95%;max-width:700px}
 .node{background:#141414;border:1px solid #2a2a2a;border-radius:12px;padding:10px 14px;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:8px}
 .node.active{border-color:#00ff88;background:#0f2018}
-.dot{width:8px;height:8px;background:#00ff88;border-radius:50%;box-shadow:0 0 8px #00ff88}
+.dot{width:8px;height:8px;background:#00ff88;border-radius:50%}
 .ping{color:#888;font-size:11px}
-.info{margin-top:30px;color:#555;font-size:12px;text-align:center}
 </style>
 </head>
 <body>
 <h1>OrNet</h1>
+<h2>EDG PROTOCOL</h2>
 <div class="search-box">
-<input id="searchInput" type="text" placeholder="Cerca con OrNet...">
+<input id="searchInput" type="text" placeholder="Cerca con EDG Protocol...">
 <button onclick="attivaProxy()">Vai</button>
 </div>
-<div id="proxy-status">proxy pronto su GOOGLE</div>
-
+<div id="proxy-status">EDG Protocol proxy pronto su GOOGLE</div>
 <div class="nodes">
-  <div class="node active" onclick="selezionaNodo(this, 'EU')"><span class="dot"></span> NODE-1 <span class="ping">EU-West • 12ms</span></div>
-  <div class="node" onclick="selezionaNodo(this, 'US')"><span class="dot"></span> NODE-2 <span class="ping">US-East • 28ms</span></div>
-  <div class="node" onclick="selezionaNodo(this, 'ASIA')"><span class="dot"></span> NODE-3 <span class="ping">Asia • 45ms</span></div>
-  <div class="node" onclick="selezionaNodo(this, 'STEALTH')"><span class="dot"></span> NODE-4 <span class="ping">Stealth • 19ms</span></div>
+  <div class="node active"><span class="dot"></span> NODE-1 <span class="ping">EU-West • 12ms</span></div>
+  <div class="node"><span class="dot"></span> NODE-2 <span class="ping">US-East • 28ms</span></div>
+  <div class="node"><span class="dot"></span> NODE-3 <span class="ping">Asia • 45ms</span></div>
+  <div class="node"><span class="dot"></span> NODE-4 <span class="ping">Stealth • 19ms</span></div>
 </div>
-<div class="info">Ricerca anonima tramite Google • Nessun log</div>
-
 <script>
-let nodo = 'EU';
-function selezionaNodo(el, nome){
-  document.querySelectorAll('.node').forEach(n=>n.classList.remove('active'));
-  el.classList.add('active');
-  nodo = nome;
-  document.getElementById('proxy-status').innerText = 'nodo ' + nome + ' selezionato • proxy pronto';
-}
-
 function attivaProxy(){
-  let q = document
+  let q=document.getElementById('searchInput').value.trim();
+  if(!q) return;
+  window.location.href='https://www.google.com/search?q='+encodeURIComponent(q);
+}
+document.getElementById('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')attivaProxy()});
+</script>
+</body>
+</html>
