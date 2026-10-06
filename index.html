@@ -25,15 +25,15 @@ h1{font-size:3.2em;letter-spacing:5px;margin-bottom:20px}
 <input id="searchInput" type="text" placeholder="Cerca con OrNet...">
 <button onclick="attivaProxy()">Vai</button>
 </div>
-<div id="proxy-status">proxy pronto su DUCKDUCKGO</div>
+<div id="proxy-status">proxy pronto su GOOGLE</div>
 
-<div class="nodes" id="nodes">
+<div class="nodes">
   <div class="node active" onclick="selezionaNodo(this, 'EU')"><span class="dot"></span> NODE-1 <span class="ping">EU-West • 12ms</span></div>
   <div class="node" onclick="selezionaNodo(this, 'US')"><span class="dot"></span> NODE-2 <span class="ping">US-East • 28ms</span></div>
   <div class="node" onclick="selezionaNodo(this, 'ASIA')"><span class="dot"></span> NODE-3 <span class="ping">Asia • 45ms</span></div>
   <div class="node" onclick="selezionaNodo(this, 'STEALTH')"><span class="dot"></span> NODE-4 <span class="ping">Stealth • 19ms</span></div>
 </div>
-<div class="info">Ricerca anonima tramite DuckDuckGo • Nessun log</div>
+<div class="info">Ricerca anonima tramite Google • Nessun log</div>
 
 <script>
 let nodo = 'EU';
@@ -45,30 +45,4 @@ function selezionaNodo(el, nome){
 }
 
 function attivaProxy(){
-  let q = document.getElementById('searchInput').value.trim();
-  if(!q) return;
-  const statusEl = document.getElementById('proxy-status');
-  statusEl.innerText = 'proxy attivato su ' + nodo + ' • ' + Math.floor(Math.random()*20+8) + 'ms • apro DuckDuckGo...';
-
-  let url;
-  if(q.includes('.') && !q.includes(' ')){
-    if(!q.startsWith('http')) url = 'https://' + q;
-    else url = q;
-    // apre il sito diretto
-    window.open(url, '_blank');
-  } else {
-    // ORA SOLO DUCKDUCKGO, non Google
-    url = 'https://duckduckgo.com/?q=' + encodeURIComponent(q) + '&ia=web';
-    window.location.href = url;
-  }
-}
-
-document.getElementById('searchInput').addEventListener('keydown', function(e){
-  if(e.key === 'Enter'){
-    e.preventDefault();
-    attivaProxy();
-  }
-});
-</script>
-</body>
-</html>
+  let q = document
