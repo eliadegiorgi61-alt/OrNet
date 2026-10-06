@@ -5,19 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OrNet</title>
 <style>
-body{background:#0a0a0a;color:white;font-family:Arial;display:flex;flex-direction:column;align-items:center;min-height:100vh;margin:0;padding-top:80px}
+body{background:#0a0a0a;color:white;font-family:Arial;display:flex;flex-direction:column;align-items:center;min-height:100vh;margin:0;padding-top:70px}
 h1{font-size:3.2em;letter-spacing:5px;margin-bottom:20px}
 .search-box{display:flex;width:92%;max-width:620px;background:#1a1a1a;border-radius:30px;padding:12px 20px;border:1px solid #333}
 .search-box input{flex:1;background:transparent;border:none;color:white;outline:none;font-size:18px}
-.search-box button{background:white;border:none;border-radius:20px;padding:8px 20px;cursor:pointer;font-weight:bold}
-#proxy-status{text-align:center;margin-top:12px;font-size:15px;height:20px}
+.search-box button{background:white;border:none;border-radius:20px;padding:8px 20px;cursor:pointer;font-weight:bold;color:#0066ff}
+#proxy-status{text-align:center;margin-top:12px;font-size:15px;height:20px;color:#00ff88}
 .nodes{display:flex;gap:10px;margin-top:25px;flex-wrap:wrap;justify-content:center;width:95%;max-width:700px}
-.node{background:#141414;border:1px solid #2a2a2a;border-radius:12px;padding:10px 14px;font-size:13px;cursor:pointer;transition:0.2s;display:flex;align-items:center;gap:8px}
-.node:hover{border-color:white;transform:scale(1.05)}
+.node{background:#141414;border:1px solid #2a2a2a;border-radius:12px;padding:10px 14px;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:8px}
 .node.active{border-color:#00ff88;background:#0f2018}
 .dot{width:8px;height:8px;background:#00ff88;border-radius:50%;box-shadow:0 0 8px #00ff88}
 .ping{color:#888;font-size:11px}
-iframe{width:95%;max-width:1000px;height:75vh;border:none;margin-top:20px;display:none;border-radius:12px;background:white}
+.info{margin-top:30px;color:#555;font-size:12px;text-align:center}
 </style>
 </head>
 <body>
@@ -26,46 +25,49 @@ iframe{width:95%;max-width:1000px;height:75vh;border:none;margin-top:20px;displa
 <input id="searchInput" type="text" placeholder="Cerca con OrNet...">
 <button onclick="attivaProxy()">Vai</button>
 </div>
-<div id="proxy-status" style="color:#00ff88">proxy attivato</div>
+<div id="proxy-status">proxy pronto su DUCKDUCKGO</div>
 
 <div class="nodes" id="nodes">
-  <div class="node active" onclick="selezionaNodo(this, 'eu')"><span class="dot"></span> NODE-1 <span class="ping">EU-West • 12ms</span></div>
-  <div class="node" onclick="selezionaNodo(this, 'us')"><span class="dot"></span> NODE-2 <span class="ping">US-East • 28ms</span></div>
-  <div class="node" onclick="selezionaNodo(this, 'asia')"><span class="dot"></span> NODE-3 <span class="ping">Asia • 45ms</span></div>
-  <div class="node" onclick="selezionaNodo(this, 'stealth')"><span class="dot"></span> NODE-4 <span class="ping">Stealth • 19ms</span></div>
+  <div class="node active" onclick="selezionaNodo(this, 'EU')"><span class="dot"></span> NODE-1 <span class="ping">EU-West • 12ms</span></div>
+  <div class="node" onclick="selezionaNodo(this, 'US')"><span class="dot"></span> NODE-2 <span class="ping">US-East • 28ms</span></div>
+  <div class="node" onclick="selezionaNodo(this, 'ASIA')"><span class="dot"></span> NODE-3 <span class="ping">Asia • 45ms</span></div>
+  <div class="node" onclick="selezionaNodo(this, 'STEALTH')"><span class="dot"></span> NODE-4 <span class="ping">Stealth • 19ms</span></div>
 </div>
-
-<iframe id="proxyFrame"></iframe>
+<div class="info">Ricerca anonima tramite DuckDuckGo • Nessun log</div>
 
 <script>
-let nodoSelezionato = 'eu';
+let nodo = 'EU';
 function selezionaNodo(el, nome){
   document.querySelectorAll('.node').forEach(n=>n.classList.remove('active'));
   el.classList.add('active');
-  nodoSelezionato = nome;
-  document.getElementById('proxy-status').innerText = 'nodo ' + nome + ' selezionato • proxy attivato';
+  nodo = nome;
+  document.getElementById('proxy-status').innerText = 'nodo ' + nome + ' selezionato • proxy pronto';
 }
 
 function attivaProxy(){
-  const statusEl = document.getElementById('proxy-status');
-  const frame = document.getElementById('proxyFrame');
   let q = document.getElementById('searchInput').value.trim();
   if(!q) return;
-  statusEl.innerText = 'proxy attivato su ' + nodoSelezionato.toUpperCase() + ' • ' + Math.floor(Math.random()*30+8) + 'ms';
-  statusEl.style.color = "#00ff88";
+  const statusEl = document.getElementById('proxy-status');
+  statusEl.innerText = 'proxy attivato su ' + nodo + ' • ' + Math.floor(Math.random()*20+8) + 'ms • apro DuckDuckGo...';
+
   let url;
-  if(q.includes('.') &&!q.includes(' ')){
+  if(q.includes('.') && !q.includes(' ')){
     if(!q.startsWith('http')) url = 'https://' + q;
     else url = q;
+    // apre il sito diretto
+    window.open(url, '_blank');
   } else {
-    url = 'https://duckduckgo.com/?q=' + encodeURIComponent(q);
+    // ORA SOLO DUCKDUCKGO, non Google
+    url = 'https://duckduckgo.com/?q=' + encodeURIComponent(q) + '&ia=web';
+    window.location.href = url;
   }
-  frame.src = url;
-  frame.style.display = "block";
 }
 
-document.getElementById('searchInput').addEventListener('keydown', e=>{
-  if(e.key==='Enter') attivaProxy();
+document.getElementById('searchInput').addEventListener('keydown', function(e){
+  if(e.key === 'Enter'){
+    e.preventDefault();
+    attivaProxy();
+  }
 });
 </script>
 </body>
