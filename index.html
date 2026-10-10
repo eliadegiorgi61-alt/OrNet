@@ -1,3 +1,9 @@
-// blocca leak IP
-// mettilo in cima al tuo script
-if(navigator.mediaDevices){ navigator.mediaDevices.getUserMedia = () => Promise.reject() }
+// PARANOID MODE AUTO - EDG Protocol
+try {
+  if(navigator.mediaDevices){
+    navigator.mediaDevices.getUserMedia = () => Promise.reject(new Error("Blocked by EDG Paranoid"));
+  }
+  window.RTCPeerConnection = null;
+  window.webkitRTCPeerConnection = null;
+  console.log("EDG Paranoid Mode ATTIVO");
+} catch(e){}
